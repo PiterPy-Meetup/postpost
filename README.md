@@ -1,14 +1,32 @@
-# postpost [![Build Status](https://travis-ci.com/PiterPy-Meetup/postpost.svg?branch=master)](https://travis-ci.com/PiterPy-Meetup/postpost)
+# postpost [![Build Status](https://travis-ci.com/piterpy-meetup/postpost.svg?branch=develop)](https://travis-ci.com/piterpy-meetup/postpost)
 
-metameta. Service for posting to social media
+metameta
 
-## Required
-python3.6, redis
+Service for posting to various social medias from one place
 
 ## Quick Start
+
+### Docker-based setup
+Prerequisites: docker-compose, `.env` file in the project root
+
+Specify Docker tag (see [list of tags](https://hub.docker.com/r/piterpy/postpost/tags) on DockerHub):
+
+`export TAG=dev`
+
+Start containers:
+
+`docker-compose up -d`
+
+Create superuser:
+
+`docker-compose exec api pipenv run python postpost/manage.py createsuperuser`
+
+### Without Docker
+Prerequisites: Python 3.6, `.env` file in the project root, Redis running on port `6379` and PostgreSQL on port `5432`
+
 `pipenv install`
 
-`export PYTHONPATH=/full/path/postpost`
+`export PYTHONPATH=/full/path/to/postpost`
 
 Copy environment variables:
 `cp .env.template .env`
@@ -24,7 +42,9 @@ Add values to the variables in `.env`, if you have any, like so:
 
 Add basic user
 
-`python manage.py createsuperuser`
+`pipenv run python manage.py createsuperuser`
+
+### Usage
 
 Login to [admin interface](http://localhost:8000/admin/oauth2_provider/application/) and create OAuth Application with
 these params:
